@@ -1,4 +1,5 @@
 import 'package:bavito/models/good.dart';
+import 'package:bavito/ui/good_page/good_page.dart';
 import 'package:bavito/ui/widgets/good_item.dart';
 import 'package:bavito/ui/widgets/navbar.dart';
 import 'package:bavito/ui/widgets/navbar_item.dart';
@@ -84,10 +85,12 @@ class _HomePageState extends State<HomePage> {
 class MainScreen extends StatelessWidget {
   MainScreen({Key? key}) : super(key: key);
 
-  void navigateToGood(BuildContext context) {
+  void navigateToGood(BuildContext context, {required Good good}) {
     pushNewScreen(
       context,
-      screen: MainScreen(),
+      screen: GoodPage(
+        good: good,
+      ),
       withNavBar: false,
     );
   }
@@ -112,7 +115,10 @@ class MainScreen extends StatelessWidget {
           child: GoodItem(
             good: good,
             onTap: () {
-              navigateToGood(context);
+              navigateToGood(
+                context,
+                good: good,
+              );
             },
           ),
         );
