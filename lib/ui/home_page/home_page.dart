@@ -91,7 +91,6 @@ class MainScreen extends StatelessWidget {
       screen: GoodPage(
         good: good,
       ),
-      withNavBar: false,
     );
   }
 

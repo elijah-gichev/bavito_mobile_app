@@ -29,20 +29,6 @@ class _GoodPageState extends State<GoodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FAB(
-        text: 'Предложить обмен',
-        textColor: CustomColors.white,
-        backgroundColor: CustomColors.green,
-        buttonType: ButtonType.outline,
-        buttonSize: ButtonSize.largeIcon,
-        icon: Icon(
-          Icons.swap_horiz,
-          size: 24.h,
-          color: CustomColors.lightGreen,
-        ),
-        iconView: true,
-        onTap: () {},
-      ),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -68,8 +54,8 @@ class _GoodPageState extends State<GoodPage> {
                           Navigator.pop(context);
                         },
                         child: Container(
-                          width: 30,
-                          height: 30,
+                          width: 40,
+                          height: 40,
                           decoration: BoxDecoration(
                             color: CustomColors.white,
                             borderRadius: BorderRadius.circular(48.0),
@@ -78,7 +64,7 @@ class _GoodPageState extends State<GoodPage> {
                             child: Icon(
                               Icons.arrow_back_ios_new,
                               color: CustomColors.green,
-                              size: 20,
+                              size: 25,
                             ),
                           ),
                         ),
@@ -115,12 +101,6 @@ class _GoodPageState extends State<GoodPage> {
                                   ],
                                 ),
                               ),
-                              // InkWell(
-                              //   onTap: widget.onTabMap,
-                              //   child: SvgPicture.asset(
-                              //     'assets/services/card_service.svg',
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),
@@ -137,11 +117,30 @@ class _GoodPageState extends State<GoodPage> {
                           ],
                         ),
                         SizedBox(height: 16.h),
-                        Text(
-                          'PRICE: ${widget.good.pricePoints}',
-                          maxLines: 1,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(color: CustomColors.green),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'PRICE: ${widget.good.pricePoints}',
+                              maxLines: 1,
+                              textAlign: TextAlign.start,
+                              style: const TextStyle(color: CustomColors.green),
+                            ),
+                            FAB(
+                              text: 'Предложить обмен',
+                              textColor: CustomColors.white,
+                              backgroundColor: CustomColors.green,
+                              buttonType: ButtonType.outline,
+                              buttonSize: ButtonSize.largeIcon,
+                              icon: Icon(
+                                Icons.swap_horiz,
+                                size: 28.h,
+                                color: CustomColors.lightGreen,
+                              ),
+                              iconView: true,
+                              onTap: () {},
+                            ),
+                          ],
                         ),
                         SizedBox(height: 16.h),
                       ],

@@ -69,7 +69,6 @@ class FAB extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (iconView) icon!,
-            if (iconView) SizedBox(width: 8),
             Center(
               child: isLoading
                   ? SizedBox(
@@ -79,12 +78,15 @@ class FAB extends StatelessWidget {
                         color: textColor,
                       ),
                     )
-                  : Text(text,
+                  : Text(
+                      text,
                       maxLines: 1,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: textColor,
-                      )),
+                        fontSize: 16,
+                      ),
+                    ),
             ),
           ],
         ),
