@@ -1,8 +1,10 @@
 import 'package:bavito/models/good.dart';
+import 'package:bavito/models/user.dart';
 import 'package:bavito/resources/colors.dart';
 import 'package:bavito/ui/all_goods/all_goods.dart';
 import 'package:bavito/ui/exchange_page/exchange_page.dart';
 import 'package:bavito/ui/good_page/good_page.dart';
+import 'package:bavito/ui/profile/profile_page.dart';
 import 'package:bavito/ui/widgets/custom_app_bar.dart';
 import 'package:bavito/ui/widgets/good_item.dart';
 import 'package:bavito/ui/widgets/navbar.dart';
@@ -40,6 +42,14 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
+  final goods = [
+    Good.sample1(),
+    Good.sample1(),
+    Good.sample1(),
+    Good.sample1(),
+    Good.sample1()
+  ];
+
   late final PersistentTabController _controller;
 
   void _controllerListener() => setState(() {});
@@ -69,7 +79,13 @@ class _HomePageState extends State<HomePage> {
         // NewGoodScreen(),
         // ExchangePage(),
         // ProfileScreen(),
-        AllGoods(), AllGoods(), ExchangePage(), AllGoods(),
+        AllGoods(),
+        AllGoods(),
+        ExchangePage(),
+        ProfilePage(
+          goods: goods,
+          user: User.sample2(),
+        ),
       ],
       hideNavigationBarWhenKeyboardShows: false,
       screenTransitionAnimation: const ScreenTransitionAnimation(

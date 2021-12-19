@@ -7,8 +7,11 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 class GoodItem extends StatelessWidget {
   final Good good;
 
-  const GoodItem(
+  double? elevation;
+
+  GoodItem(
     this.good, {
+    this.elevation,
     Key? key,
   }) : super(key: key);
 
@@ -31,11 +34,12 @@ class GoodItem extends StatelessWidget {
         );
       },
       child: Card(
+        elevation: elevation,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.only(left: 10, right: 10, top: 10),
           child: Column(
             children: [
               SizedBox(height: 8.h),
@@ -62,6 +66,7 @@ class GoodItem extends StatelessWidget {
                 maxLines: 1,
                 textAlign: TextAlign.start,
               ),
+              SizedBox(height: 8.h),
             ],
           ),
         ),
