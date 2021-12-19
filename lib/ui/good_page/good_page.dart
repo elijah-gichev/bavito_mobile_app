@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:bavito/models/good.dart';
 import 'package:bavito/resources/colors.dart';
+import 'package:bavito/ui/widgets/custom_app_bar.dart';
 import 'package:bavito/ui/widgets/fab.dart';
 import 'package:bavito/utils/size_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,13 +30,35 @@ class _GoodPageState extends State<GoodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 27),
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              size: 16.h,
+            ),
+            color: CustomColors.black,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        title: Text(
+          'Товар',
+          style: TextStyle(
+            color: CustomColors.green,
+            fontSize: 18.h,
+            fontFamily: 'Roboto',
+          ),
+        ),
+      ),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20.h),
                 Stack(
                   children: [
                     Center(
@@ -44,30 +67,6 @@ class _GoodPageState extends State<GoodPage> {
                         width: double.infinity,
                         height: 232,
                         fit: BoxFit.cover,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 18, top: 12),
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: CustomColors.white,
-                            borderRadius: BorderRadius.circular(48.0),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.arrow_back_ios_new,
-                              color: CustomColors.green,
-                              size: 25,
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ],

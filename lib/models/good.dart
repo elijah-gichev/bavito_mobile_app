@@ -19,7 +19,7 @@ class Good {
     required this.pricePoints,
   });
 
-  factory Good.sample() {
+  factory Good.sample1() {
     const id = 1;
 
     const title = 'yandex logo';
@@ -28,7 +28,30 @@ class Good {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Yandex_Browser_logo.svg/1200px-Yandex_Browser_logo.svg.png';
     const pricePoints = 100;
 
-    final user = User.sample();
+    final user = User.sample1();
+
+    final good = Good(
+      id: id,
+      owner: user,
+      title: title,
+      description: description,
+      imgSrc: imgSrc,
+      pricePoints: pricePoints,
+    );
+
+    return good;
+  }
+
+  factory Good.sample2() {
+    const id = 2;
+
+    const title = 'google logo';
+    const description = 'google logo is beautiful but yandex not';
+    const imgSrc =
+        'https://play-lh.googleusercontent.com/aFWiT2lTa9CYBpyPjfgfNHd0r5puwKRGj2rHpdPTNrz2N9LXgN_MbLjePd1OTc0E8Rl1';
+    const pricePoints = 200;
+
+    final user = User.sample2();
 
     final good = Good(
       id: id,
