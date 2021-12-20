@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
       itemCount: _items.length,
       screens: [
         AllGoods(),
-        const NewGood(),
+        NewGood(),
         ExchangePage(),
         ProfilePage(
           goods: goods,

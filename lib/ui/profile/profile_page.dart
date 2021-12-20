@@ -78,6 +78,16 @@ class ProfilePageView extends StatelessWidget {
                     fontSize: 13.h,
                   ),
                 ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  user.email,
+                  style: TextStyle(
+                    color: CustomColors.grey,
+                    fontSize: 13.h,
+                  ),
+                ),
               ],
             ),
             SizedBox(
