@@ -4,6 +4,7 @@ import 'package:bavito/resources/colors.dart';
 import 'package:bavito/ui/all_goods/all_goods.dart';
 import 'package:bavito/ui/exchange_page/exchange_page.dart';
 import 'package:bavito/ui/good_page/good_page.dart';
+import 'package:bavito/ui/new_good/new_good.dart';
 import 'package:bavito/ui/profile/profile_page.dart';
 import 'package:bavito/ui/widgets/custom_app_bar.dart';
 import 'package:bavito/ui/widgets/good_item.dart';
@@ -75,12 +76,8 @@ class _HomePageState extends State<HomePage> {
       controller: _controller,
       itemCount: _items.length,
       screens: [
-        // MainScreen(), all goods
-        // NewGoodScreen(),
-        // ExchangePage(),
-        // ProfileScreen(),
         AllGoods(),
-        AllGoods(),
+        const NewGood(),
         ExchangePage(),
         ProfilePage(
           goods: goods,

@@ -13,6 +13,11 @@ class AllGoods extends StatelessWidget {
     Good.sample1(),
     Good.sample1(),
     Good.sample1(),
+    Good.sample1(),
+    Good.sample1(),
+    Good.sample1(),
+    Good.sample1(),
+    Good.sample1(),
     Good.sample1()
   ];
 
@@ -30,8 +35,8 @@ class AllGoods extends StatelessWidget {
         ),
       ),
       body: GridView.builder(
+        physics: const ScrollPhysics(),
         itemCount: goods.length,
-        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           final good = goods[index];
           return Container(

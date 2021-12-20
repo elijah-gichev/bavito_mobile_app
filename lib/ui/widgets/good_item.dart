@@ -21,6 +21,7 @@ class GoodItem extends StatelessWidget {
       screen: GoodPage(
         good: good,
       ),
+      pageTransitionAnimation: PageTransitionAnimation.rotate,
     );
   }
 

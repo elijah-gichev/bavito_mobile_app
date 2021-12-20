@@ -86,7 +86,7 @@ class ProfilePageView extends StatelessWidget {
             Expanded(
               child: GridView.builder(
                 itemCount: goods.length,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   final good = goods[index];
                   return Container(
