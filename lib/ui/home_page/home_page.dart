@@ -1,16 +1,11 @@
 import 'package:bavito/models/good.dart';
 import 'package:bavito/models/user.dart';
-import 'package:bavito/resources/colors.dart';
 import 'package:bavito/ui/all_goods/all_goods.dart';
 import 'package:bavito/ui/exchange_page/exchange_page.dart';
-import 'package:bavito/ui/good_page/good_page.dart';
 import 'package:bavito/ui/new_good/new_good.dart';
 import 'package:bavito/ui/profile/profile_page.dart';
-import 'package:bavito/ui/widgets/custom_app_bar.dart';
-import 'package:bavito/ui/widgets/good_item.dart';
 import 'package:bavito/ui/widgets/navbar.dart';
 import 'package:bavito/ui/widgets/navbar_item.dart';
-import 'package:bavito/utils/size_util.dart';
 import 'package:flutter/material.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';

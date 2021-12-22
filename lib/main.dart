@@ -1,4 +1,5 @@
 import 'package:bavito/ui/home_page/home_page.dart';
+import 'package:bavito/ui/splash/splash_page.dart';
 import 'package:bavito/utils/size_util.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         );
         return child!;
       },
-      home: HomePage(),
+      home: const SplashPage(),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:bavito/resources/colors.dart';
 import 'package:bavito/ui/new_good/controllers/aggregate_good_controller.dart';
-import 'package:bavito/ui/new_good/widgets/big_text_field.dart';
+import 'package:bavito/ui/widgets/big_text_field.dart';
 import 'package:bavito/ui/new_good/controllers/fill_routing_controller.dart';
 import 'package:bavito/ui/new_good/widgets/step_description.dart';
 import 'package:bavito/ui/widgets/fab.dart';
