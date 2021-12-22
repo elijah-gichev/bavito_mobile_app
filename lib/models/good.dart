@@ -8,16 +8,18 @@ class Good {
   final String description;
   final String imgSrc;
 
+  final bool isMy;
   final int pricePoints;
 
-  Good({
-    required this.id,
-    required this.owner,
-    required this.title,
-    required this.description,
-    required this.imgSrc,
-    required this.pricePoints,
-  });
+  Good(
+      {required this.id,
+      required this.owner,
+      required this.title,
+      required this.description,
+      required this.imgSrc,
+      required this.pricePoints,
+      bool? isMy})
+      : isMy = isMy ?? false;
 
   factory Good.sample1() {
     const id = 1;
@@ -28,6 +30,8 @@ class Good {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Yandex_Browser_logo.svg/1200px-Yandex_Browser_logo.svg.png';
     const pricePoints = 100;
 
+    const isMy = true;
+
     final user = User.sample1();
 
     final good = Good(
@@ -37,6 +41,7 @@ class Good {
       description: description,
       imgSrc: imgSrc,
       pricePoints: pricePoints,
+      isMy: isMy,
     );
 
     return good;

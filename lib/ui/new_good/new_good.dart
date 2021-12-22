@@ -1,7 +1,8 @@
 import 'package:bavito/resources/colors.dart';
-import 'package:bavito/ui/new_good/fill_description.dart';
-import 'package:bavito/ui/new_good/fill_other.dart';
-import 'package:bavito/ui/new_good/fill_routing_controller.dart';
+import 'package:bavito/ui/new_good/controllers/aggregate_good_controller.dart';
+import 'package:bavito/ui/new_good/fill_description/fill_description.dart';
+import 'package:bavito/ui/new_good/fill_other/fill_other.dart';
+import 'package:bavito/ui/new_good/controllers/fill_routing_controller.dart';
 import 'package:bavito/ui/widgets/custom_app_bar.dart';
 import 'package:bavito/utils/size_util.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,15 @@ class NewGood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => FillRoutingController(0),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => FillRoutingController(0),
+        ),
+        Provider(
+          create: (_) => AggregateGoodController(),
+        ),
+      ],
       child: NewGoodView(),
     );
   }

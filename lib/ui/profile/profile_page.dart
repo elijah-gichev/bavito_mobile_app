@@ -101,7 +101,9 @@ class ProfilePageView extends StatelessWidget {
                   final good = goods[index];
                   return Container(
                     padding: EdgeInsets.only(bottom: 10.0.h, right: 10.w),
-                    child: GoodItem(good),
+                    child: GoodItem(
+                      good,
+                    ),
                   );
                 },
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

@@ -7,10 +7,16 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 class GoodItem extends StatelessWidget {
   final Good good;
 
-  double? elevation;
+  final VoidCallback? onExchangeTap;
 
-  GoodItem(
+  final VoidCallback? onTap;
+
+  final double? elevation;
+
+  const GoodItem(
     this.good, {
+    this.onExchangeTap,
+    this.onTap,
     this.elevation,
     Key? key,
   }) : super(key: key);
@@ -20,6 +26,7 @@ class GoodItem extends StatelessWidget {
       context,
       screen: GoodPage(
         good: good,
+        onChooseItem: onExchangeTap,
       ),
       pageTransitionAnimation: PageTransitionAnimation.rotate,
     );
@@ -29,10 +36,14 @@ class GoodItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigateToGood(
-          context,
-          good: good,
-        );
+        if (onTap != null) {
+          onTap!();
+        } else {
+          navigateToGood(
+            context,
+            good: good,
+          );
+        }
       },
       child: Card(
         elevation: elevation,

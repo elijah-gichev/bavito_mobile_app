@@ -10,10 +10,12 @@ import 'package:flutter/material.dart';
 
 class GoodPage extends StatefulWidget {
   final Good good;
+  final VoidCallback? onChooseItem;
 
   const GoodPage({
     Key? key,
     required this.good,
+    this.onChooseItem,
   }) : super(key: key);
 
   @override
@@ -125,20 +127,25 @@ class _GoodPageState extends State<GoodPage> {
                               textAlign: TextAlign.start,
                               style: const TextStyle(color: CustomColors.green),
                             ),
-                            FAB(
-                              text: 'Предложить обмен',
-                              textColor: CustomColors.white,
-                              backgroundColor: CustomColors.green,
-                              buttonType: ButtonType.outline,
-                              buttonSize: ButtonSize.largeIcon,
-                              icon: Icon(
-                                Icons.swap_horiz,
-                                size: 28.h,
-                                color: CustomColors.lightGreen,
+                            if (!widget.good.isMy)
+                              FAB(
+                                text: 'Предложить обмен',
+                                textColor: CustomColors.white,
+                                backgroundColor: CustomColors.green,
+                                buttonType: ButtonType.outline,
+                                buttonSize: ButtonSize.largeIcon,
+                                icon: Icon(
+                                  Icons.swap_horiz,
+                                  size: 28.h,
+                                  color: CustomColors.lightGreen,
+                                ),
+                                iconView: true,
+                                onTap: () {
+                                  if (widget.onChooseItem != null) {
+                                    widget.onChooseItem!();
+                                  }
+                                },
                               ),
-                              iconView: true,
-                              onTap: () {},
-                            ),
                           ],
                         ),
                         SizedBox(height: 16.h),

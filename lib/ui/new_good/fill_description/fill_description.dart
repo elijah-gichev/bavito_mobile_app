@@ -1,7 +1,8 @@
 import 'package:bavito/resources/colors.dart';
-import 'package:bavito/ui/new_good/big_text_field.dart';
-import 'package:bavito/ui/new_good/fill_routing_controller.dart';
-import 'package:bavito/ui/new_good/step_description.dart';
+import 'package:bavito/ui/new_good/controllers/aggregate_good_controller.dart';
+import 'package:bavito/ui/new_good/widgets/big_text_field.dart';
+import 'package:bavito/ui/new_good/controllers/fill_routing_controller.dart';
+import 'package:bavito/ui/new_good/widgets/step_description.dart';
 import 'package:bavito/ui/widgets/fab.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
@@ -52,6 +53,9 @@ class _FillDescriptionState extends State<FillDescription> {
               buttonType: ButtonType.filled,
               buttonSize: ButtonSize.large,
               onTap: () {
+                final description = textEditingController.text;
+                context.read<AggregateGoodController>().description =
+                    description;
                 context.read<FillRoutingController>().nextStep();
               },
             ),

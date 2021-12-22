@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  final goods = [
+  final myGoods = [
     Good.sample1(),
     Good.sample1(),
     Good.sample1(),
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
         NewGood(),
         ExchangePage(),
         ProfilePage(
-          goods: goods,
+          goods: myGoods,
           user: User.sample2(),
         ),
       ],
