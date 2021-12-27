@@ -1,8 +1,6 @@
 import 'package:bavito/resources/colors.dart';
 import 'package:bavito/ui/home_page/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

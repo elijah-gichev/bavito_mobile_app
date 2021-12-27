@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class User {
   final int id;
 
@@ -51,4 +53,28 @@ class User {
 
     return user;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'email': email,
+      'phone': phone,
+      'name': name,
+      'surname': surname,
+    };
+  }
+
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      id: map['id']?.toInt() ?? 0,
+      email: map['email'] ?? '',
+      phone: map['phone'] ?? '',
+      name: map['name'] ?? '',
+      surname: map['surname'] ?? '',
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory User.fromJson(String source) => User.fromMap(json.decode(source));
 }
