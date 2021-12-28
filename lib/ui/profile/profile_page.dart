@@ -28,7 +28,6 @@ class ProfilePage extends StatelessWidget {
       value: getIt<UserService>(),
       child: ProfilePageView(
         goods: goods,
-        user: user,
       ),
     );
   }
@@ -36,25 +35,23 @@ class ProfilePage extends StatelessWidget {
 
 class ProfilePageView extends StatelessWidget {
   final List<Good> goods;
-  final User user;
 
   const ProfilePageView({
     required this.goods,
-    required this.user,
     Key? key,
   }) : super(key: key);
 
   Widget _generateCredentialsBlock(BuildContext context) {
     final logged = context.watch<UserService>().hasUser;
+    final user = context.watch<UserService>().user;
     if (logged) {
       return Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                user.name + ' ' + user.surname,
+                user!.name + ' ' + user.surname,
                 style: TextStyle(
                   color: CustomColors.black,
                   fontSize: 20.h,

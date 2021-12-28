@@ -1,6 +1,8 @@
+import 'package:bavito/main.dart';
 import 'package:bavito/models/params_user_data_model.dart';
 import 'package:bavito/network/dio_auth_service.dart';
 import 'package:bavito/network/exceptions/api_request_exception.dart';
+import 'package:bavito/services/dio_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 
@@ -13,7 +15,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   late final DioAuthService _dioAuthService;
 
   RegisterBloc() : super(RegisterInitial()) {
-    _dioAuthService = DioAuthService(Dio());
+    _dioAuthService = DioAuthService(getIt<DioService>());
 
     on<RegisterAttempted>(
       (event, emit) async {

@@ -1,4 +1,5 @@
 import 'package:bavito/models/user.dart';
+import 'package:bavito/services/dio_service.dart';
 import 'package:bavito/services/user_service.dart';
 import 'package:bavito/ui/splash/splash_page.dart';
 import 'package:bavito/utils/size_util.dart';
@@ -39,6 +40,10 @@ Future<void> setup() async {
 
   getIt.registerSingleton<UserService>(
     UserService(),
+  );
+
+  getIt.registerSingleton<DioService>(
+    DioService.baseClient(),
   );
 
   // final user = User.sample1();

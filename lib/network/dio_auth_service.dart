@@ -1,16 +1,19 @@
 import 'dart:async';
 
+import 'package:bavito/main.dart';
 import 'package:bavito/models/params_user_data_model.dart';
 import 'package:bavito/models/user.dart';
+import 'package:bavito/services/dio_service.dart';
 import 'package:dio/dio.dart';
 
 import 'exceptions/api_request_exception.dart';
 
 class DioAuthService {
-  final Dio dio;
+  final Dio _dio;
+  final DioService _dioService;
 
-  DioAuthService(this.dio) {
-    dio.options.validateStatus = (status) {
+  DioAuthService(this._dioService) : _dio = _dioService.client {
+    _dio.options.validateStatus = (status) {
       return status! >= 200 && status < 500;
     };
   }
@@ -25,7 +28,7 @@ class DioAuthService {
   ///
   Future<User> registerUser(ParamsUserDataModel data) async {
     try {
-      var response = await dio.post(
+      var response = await _dio.post(
         'http://0.0.0.0:3000/users',
         data: {
           "user": {
@@ -80,7 +83,7 @@ class DioAuthService {
     required String password,
   }) async {
     try {
-      var res = await dio.post(
+      var res = await _dio.post(
         'http://0.0.0.0:3000/auth',
         data: {
           "user": {
@@ -95,6 +98,9 @@ class DioAuthService {
         final token = body['token'];
 
         final user = User.fromMap(body['user']);
+
+        _dioService.addToken(token);
+
         user.addToken(token);
 
         return user;

@@ -1,9 +1,9 @@
-import 'package:bavito/models/user.dart';
+import 'package:bavito/main.dart';
 import 'package:bavito/network/dio_auth_service.dart';
 import 'package:bavito/network/exceptions/api_request_exception.dart';
+import 'package:bavito/services/dio_service.dart';
 import 'package:bavito/services/user_service.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 
 import 'package:meta/meta.dart';
 
@@ -18,7 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc(
     this._userService,
   ) : super(LoginInitial()) {
-    _dioAuthService = DioAuthService(Dio());
+    _dioAuthService = DioAuthService(getIt<DioService>());
 
     on<LoginAttempted>(
       (event, emit) async {
