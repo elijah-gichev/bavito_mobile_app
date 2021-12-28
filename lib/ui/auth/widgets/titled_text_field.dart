@@ -96,7 +96,7 @@ class _CustomTextFieldState extends State<TitledTextField> {
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
-              color: CustomColors.black,
+              color: CustomColors.green,
             ),
             borderRadius: BorderRadius.circular(8),
           ),

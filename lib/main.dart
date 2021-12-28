@@ -1,10 +1,12 @@
+import 'package:bavito/models/user.dart';
 import 'package:bavito/services/user_service.dart';
 import 'package:bavito/ui/splash/splash_page.dart';
 import 'package:bavito/utils/size_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-void main() {
+void main() async {
+  await setup();
   runApp(const MyApp());
 }
 
@@ -38,6 +40,9 @@ Future<void> setup() async {
   getIt.registerSingleton<UserService>(
     UserService(),
   );
+
+  // final user = User.sample1();
+  // getIt<UserService>().createUser(user);
 }
 
 late GetIt getIt;

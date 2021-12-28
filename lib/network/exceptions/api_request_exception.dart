@@ -1,11 +1,21 @@
-abstract class ApiRequestException {}
+abstract class ApiRequestException {
+  final String errorMsg;
 
-class UserAlreadyExists extends ApiRequestException {}
+  ApiRequestException(this.errorMsg);
+}
 
-class OtherException extends ApiRequestException {}
+class UserAlreadyExists extends ApiRequestException {
+  UserAlreadyExists(String errorMsg) : super(errorMsg);
+}
 
-class UserNotExists extends ApiRequestException {}
+class OtherException extends ApiRequestException {
+  OtherException(String errorMsg) : super(errorMsg);
+}
 
-class PetNotExists extends ApiRequestException {}
+class UserNotExists extends ApiRequestException {
+  UserNotExists(String errorMsg) : super(errorMsg);
+}
 
-class AuthKeyNotFound extends ApiRequestException {}
+class AuthKeyNotFound extends ApiRequestException {
+  AuthKeyNotFound(String errorMsg) : super(errorMsg);
+}

@@ -1,11 +1,16 @@
+import 'package:bavito/main.dart';
 import 'package:bavito/models/good.dart';
 import 'package:bavito/models/user.dart';
 import 'package:bavito/resources/colors.dart';
+import 'package:bavito/services/user_service.dart';
+import 'package:bavito/ui/auth/login.dart';
 import 'package:bavito/ui/widgets/custom_app_bar.dart';
 import 'package:bavito/ui/widgets/fab.dart';
 import 'package:bavito/ui/widgets/good_item.dart';
 import 'package:bavito/utils/size_util.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   final List<Good> goods;
@@ -19,9 +24,12 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProfilePageView(
-      goods: goods,
-      user: user,
+    return ChangeNotifierProvider.value(
+      value: getIt<UserService>(),
+      child: ProfilePageView(
+        goods: goods,
+        user: user,
+      ),
     );
   }
 }
@@ -36,38 +44,60 @@ class ProfilePageView extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  Widget _generateCredentialsBlock() {
-    final logged = false;
+  Widget _generateCredentialsBlock(BuildContext context) {
+    final logged = context.watch<UserService>().hasUser;
     if (logged) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      return Row(
+        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(
-            user.name + ' ' + user.surname,
-            style: TextStyle(
-              color: CustomColors.black,
-              fontSize: 20.h,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                user.name + ' ' + user.surname,
+                style: TextStyle(
+                  color: CustomColors.black,
+                  fontSize: 20.h,
+                ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                user.phone,
+                style: TextStyle(
+                  color: CustomColors.grey,
+                  fontSize: 13.h,
+                ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                user.email,
+                style: TextStyle(
+                  color: CustomColors.grey,
+                  fontSize: 13.h,
+                ),
+              ),
+            ],
+          ),
+          Spacer(),
+          FAB(
+            text: 'Выйти',
+            textColor: CustomColors.white,
+            backgroundColor: CustomColors.green,
+            icon: Icon(
+              Icons.swap_horiz,
+              size: 28.h,
+              color: CustomColors.lightGreen,
             ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Text(
-            user.phone,
-            style: TextStyle(
-              color: CustomColors.grey,
-              fontSize: 13.h,
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Text(
-            user.email,
-            style: TextStyle(
-              color: CustomColors.grey,
-              fontSize: 13.h,
-            ),
+            iconView: true,
+            onTap: () {
+              context.read<UserService>().deleteUser();
+            },
+            buttonType: ButtonType.outline,
+            buttonSize: ButtonSize.small,
           ),
         ],
       );
@@ -85,13 +115,21 @@ class ProfilePageView extends StatelessWidget {
           ),
           iconView: true,
           onTap: () {
-            // go to login page
+            navigateToLogin(context);
           },
           buttonType: ButtonType.outline,
           buttonSize: ButtonSize.small,
         ),
       );
     }
+  }
+
+  void navigateToLogin(BuildContext context) {
+    pushNewScreen(
+      context,
+      screen: const LoginScreen(),
+      pageTransitionAnimation: PageTransitionAnimation.scaleRotate,
+    );
   }
 
   @override
@@ -111,35 +149,37 @@ class ProfilePageView extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: 16.w,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              height: 28.h,
-            ),
-            _generateCredentialsBlock(),
-            SizedBox(
-              height: 20.h,
-            ),
-            Expanded(
-              child: GridView.builder(
-                itemCount: goods.length,
-                physics: const ScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  final good = goods[index];
-                  return Container(
-                    padding: EdgeInsets.only(bottom: 10.0.h, right: 10.w),
-                    child: GoodItem(
-                      good,
-                    ),
-                  );
-                },
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 28.h,
+              ),
+              _generateCredentialsBlock(context),
+              SizedBox(
+                height: 20.h,
+              ),
+              Expanded(
+                child: GridView.builder(
+                  itemCount: goods.length,
+                  physics: const ScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    final good = goods[index];
+                    return Container(
+                      padding: EdgeInsets.only(bottom: 10.0.h, right: 10.w),
+                      child: GoodItem(
+                        good,
+                      ),
+                    );
+                  },
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

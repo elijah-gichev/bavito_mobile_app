@@ -91,7 +91,7 @@ class RegistrationView extends StatelessWidget {
                       'Для подтверждения аккаунта перейдите на почту!'),
                   actions: <Widget>[
                     TextButton(
-                      child: Text("OK"),
+                      child: const Text("OK"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -105,42 +105,42 @@ class RegistrationView extends StatelessWidget {
         },
         builder: (context, state) {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               children: [
-                SizedBox(height: 40),
+                const Spacer(),
                 TitledTextField(
                   hintText: 'Почта',
                   subTitle: 'Email',
                   contoller: emailTextController,
                 ),
-                SizedBox(height: 40),
+                const Spacer(),
                 TitledTextField(
                   hintText: 'Имя',
                   subTitle: 'Name',
                   contoller: nameTextController,
                 ),
-                SizedBox(height: 40),
+                const Spacer(),
                 TitledTextField(
                   hintText: 'Телефон',
                   subTitle: 'phone',
                   contoller: phoneTextController,
                 ),
-                SizedBox(height: 16),
+                const Spacer(flex: 3),
                 TitledTextField(
                   hintText: 'Пароль',
                   subTitle: 'Пароль',
                   canBeObscured: true,
                   contoller: pwdTextController,
                 ),
-                SizedBox(height: 16),
+                const Spacer(),
                 TitledTextField(
                   hintText: 'Повторите пароль',
                   subTitle: 'Пароль',
                   canBeObscured: true,
                   contoller: repeatPwdTextController,
                 ),
-                SizedBox(height: 48),
+                const SizedBox(height: 48),
                 FAB(
                   text: 'Создать аккаунт',
                   textColor: CustomColors.white,
@@ -170,7 +170,7 @@ class RegistrationView extends StatelessWidget {
                   const Center(
                     child: CircularProgressIndicator(),
                   ),
-                const Spacer(),
+                const Spacer(flex: 8),
               ],
             ),
           );

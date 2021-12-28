@@ -1,6 +1,8 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
+import 'package:bavito/main.dart';
 import 'package:bavito/resources/colors.dart';
+import 'package:bavito/services/user_service.dart';
 import 'package:bavito/ui/auth/bloc/login/login_bloc.dart';
 import 'package:bavito/ui/auth/registration.dart';
 import 'package:bavito/ui/auth/widgets/titled_text_field.dart';
@@ -8,7 +10,6 @@ import 'package:bavito/ui/widgets/custom_app_bar.dart';
 import 'package:bavito/ui/widgets/fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -21,9 +22,6 @@ class LoginScreen extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => LoginBloc(
-            Auth(getIt<ApiClientService>().apiClient),
-            getIt<LocalStorageService>(),
-            getIt<ApiClientService>(),
             getIt<UserService>(),
           ),
         ),
@@ -153,6 +151,9 @@ class LoginScreenView extends StatelessWidget {
                     ),
                     const SizedBox(width: 2),
                     GestureDetector(
+                      onTap: () {
+                        navigateToRegistration(context);
+                      },
                       child: const Text(
                         'Зарегистрируйтесь',
                         style: TextStyle(

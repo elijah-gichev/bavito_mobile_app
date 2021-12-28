@@ -1,5 +1,6 @@
 import 'package:bavito/models/params_user_data_model.dart';
 import 'package:bavito/network/dio_auth_service.dart';
+import 'package:bavito/network/exceptions/api_request_exception.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 
@@ -31,8 +32,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
           emit(RegisterDone());
         } catch (e) {
-          final msg = 'Что-то пошло не так!';
-          emit(RegisterFailure(msg));
+          final defaultMsg = 'Что-то пошло не так!';
+
+          if (e is ApiRequestException) {
+            emit(RegisterFailure(e.errorMsg));
+          } else {
+            emit(RegisterFailure(defaultMsg));
+          }
         }
       },
     );

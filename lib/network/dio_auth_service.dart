@@ -3,14 +3,17 @@ import 'dart:async';
 import 'package:bavito/models/params_user_data_model.dart';
 import 'package:bavito/models/user.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 import 'exceptions/api_request_exception.dart';
 
 class DioAuthService {
   final Dio dio;
 
-  DioAuthService(this.dio);
+  DioAuthService(this.dio) {
+    dio.options.validateStatus = (status) {
+      return status! >= 200 && status < 500;
+    };
+  }
 
   ///Send a request to server to register a user.
   ///
@@ -25,29 +28,45 @@ class DioAuthService {
       var response = await dio.post(
         'http://0.0.0.0:3000/users',
         data: {
-          "email": data.email,
-          "password": data.password,
-          "password_confirmation": data.passwordConfirmation,
-          "name": data.name,
-          "phone": data.phone,
+          "user": {
+            "email": data.email,
+            "password": data.password,
+            "password_confirmation": data.passwordConfirmation,
+            "name": data.name,
+            "phone": data.phone,
+          },
         },
       );
       var body = response.data as Map;
+
       if (response.statusCode == 200) {
         return User.fromMap(
           (body as Map<String, dynamic>)['user'],
         );
       } else {
-        throw OtherException();
+        final statusCode = response.statusCode;
+
+        if (statusCode == 404) {
+          throw UserAlreadyExists('Пользователь уже существует');
+        }
+
+        if (statusCode == 400) {
+          final errors = (response.data['error'] as List);
+
+          final errorMsg = errors.join('\n');
+
+          throw OtherException(errorMsg);
+        }
+
+        throw OtherException('Что-то пошло не так!');
       }
     } on DioError catch (e) {
       if (e.type == DioErrorType.connectTimeout ||
           e.type == DioErrorType.sendTimeout ||
           e.type == DioErrorType.receiveTimeout) {
         throw TimeoutException('connection or sending timeout');
-      } else {
-        throw OtherException();
       }
+      rethrow;
     }
   }
 
@@ -76,18 +95,17 @@ class DioAuthService {
         final user = User.fromMap(body['user']);
         return user;
       } else {
-        if (body['user'] == null) {
-          throw UserNotExists();
+        if (res.statusCode == 404) {
+          throw UserNotExists('Пользователь не найден!');
         }
-        throw OtherException();
+        throw OtherException('Что-то пошло не так!');
       }
     } on DioError catch (e) {
       if (e.type == DioErrorType.connectTimeout ||
           e.type == DioErrorType.sendTimeout) {
         throw TimeoutException('connection or sending timeout');
-      } else {
-        throw Exception();
       }
+      rethrow;
     }
   }
 }
