@@ -8,13 +8,20 @@ class User {
   final String name;
   final String surname;
 
+  String? token;
+
   User({
     required this.id,
     required this.email,
     required this.phone,
     required this.name,
     required this.surname,
+    this.token,
   });
+
+  void addToken(String token) {
+    this.token = token;
+  }
 
   factory User.sample1() {
     const id = 1;
@@ -24,12 +31,15 @@ class User {
     const name = "Vladimir";
     const surname = "Zhavoronkov";
 
+    const token = "lol token";
+
     final user = User(
       id: id,
       email: email,
       phone: phone,
       name: name,
       surname: surname,
+      token: token,
     );
 
     return user;
@@ -43,13 +53,15 @@ class User {
     const name = "Alexey";
     const surname = "Fedotov";
 
+    const token = "lol token";
+
     final user = User(
-      id: id,
-      email: email,
-      phone: phone,
-      name: name,
-      surname: surname,
-    );
+        id: id,
+        email: email,
+        phone: phone,
+        name: name,
+        surname: surname,
+        token: token);
 
     return user;
   }
@@ -61,6 +73,7 @@ class User {
       'phone': phone,
       'name': name,
       'surname': surname,
+      'token': token,
     };
   }
 
@@ -71,6 +84,7 @@ class User {
       phone: map['phone'] ?? '',
       name: map['name'] ?? '',
       surname: map['surname'] ?? '',
+      token: map['token'],
     );
   }
 

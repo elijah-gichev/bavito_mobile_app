@@ -92,7 +92,11 @@ class DioAuthService {
       var body = (res.data as Map);
 
       if (res.statusCode == 200) {
+        final token = body['token'];
+
         final user = User.fromMap(body['user']);
+        user.addToken(token);
+
         return user;
       } else {
         if (res.statusCode == 404) {

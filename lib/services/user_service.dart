@@ -8,6 +8,7 @@ class UserService with ChangeNotifier {
   ///Saves the `user`
   void createUser(User user) {
     _user = user;
+
     notifyListeners();
   }
 
