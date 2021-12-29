@@ -1,43 +1,44 @@
 import 'package:bavito/main.dart';
 import 'package:bavito/models/good.dart';
 import 'package:bavito/models/user.dart';
+import 'package:bavito/network/goods_network.dart';
 import 'package:bavito/resources/colors.dart';
+import 'package:bavito/services/dio_service.dart';
 import 'package:bavito/services/user_service.dart';
 import 'package:bavito/ui/auth/login.dart';
+import 'package:bavito/ui/profile/cubit/my_goods_cubit.dart';
 import 'package:bavito/ui/widgets/custom_app_bar.dart';
 import 'package:bavito/ui/widgets/fab.dart';
 import 'package:bavito/ui/widgets/good_item.dart';
 import 'package:bavito/utils/size_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
-  final List<Good> goods;
-  final User user;
-
   const ProfilePage({
     Key? key,
-    required this.goods,
-    required this.user,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: getIt<UserService>(),
-      child: ProfilePageView(
-        goods: goods,
+    return BlocProvider(
+      create: (context) => MyGoodsCubit(
+        GoodsNetwork(
+          getIt<DioService>(),
+        ),
+      )..loadMyGoods(),
+      child: ChangeNotifierProvider.value(
+        value: getIt<UserService>(),
+        child: const ProfilePageView(),
       ),
     );
   }
 }
 
 class ProfilePageView extends StatelessWidget {
-  final List<Good> goods;
-
   const ProfilePageView({
-    required this.goods,
     Key? key,
   }) : super(key: key);
 
@@ -126,6 +127,8 @@ class ProfilePageView extends StatelessWidget {
       context,
       screen: const LoginScreen(),
       pageTransitionAnimation: PageTransitionAnimation.scaleRotate,
+    ).then(
+      (value) => context.read<MyGoodsCubit>().loadMyGoods(),
     );
   }
 
@@ -157,24 +160,41 @@ class ProfilePageView extends StatelessWidget {
               SizedBox(
                 height: 20.h,
               ),
-              Expanded(
-                child: GridView.builder(
-                  itemCount: goods.length,
-                  physics: const ScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    final good = goods[index];
-                    return Container(
-                      padding: EdgeInsets.only(bottom: 10.0.h, right: 10.w),
-                      child: GoodItem(
-                        good,
+              BlocBuilder<MyGoodsCubit, MyGoodsState>(
+                builder: (context, state) {
+                  if (state is MyGoodsLoadingDone) {
+                    final goods = state.goods;
+                    return Expanded(
+                      child: GridView.builder(
+                        itemCount: goods.length,
+                        physics: const ScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          final good = goods[index];
+                          return Container(
+                            padding:
+                                EdgeInsets.only(bottom: 10.0.h, right: 10.w),
+                            child: GoodItem(
+                              good,
+                            ),
+                          );
+                        },
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
                       ),
                     );
-                  },
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                ),
-              ),
+                  } else if (state is MyGoodsLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text('Что-то пошло не так!'),
+                    );
+                  }
+                },
+              )
             ],
           ),
         ),

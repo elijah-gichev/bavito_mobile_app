@@ -7,6 +7,10 @@ class MyGoodsInitial extends MyGoodsState {}
 
 class MyGoodsLoading extends MyGoodsState {}
 
-class MyGoodsLoadingDone extends MyGoodsState {}
+class MyGoodsLoadingDone extends MyGoodsState {
+  final List<Good> goods;
+
+  MyGoodsLoadingDone(this.goods);
+}
 
 class MyGoodsLoadingFailure extends MyGoodsState {}

@@ -19,6 +19,8 @@ class DioService {
 
   ///Adding an `Authorization` header to [client]
   void addToken(String token) {
+    print("token: $token");
+
     client.options.headers = {
       'token': token,
     };

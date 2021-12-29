@@ -20,7 +20,7 @@ class User {
   });
 
   void addToken(String token) {
-    this.token = token;
+    token = token;
   }
 
   factory User.sample1() {

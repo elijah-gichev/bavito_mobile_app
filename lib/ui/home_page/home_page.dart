@@ -38,14 +38,6 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  final myGoods = [
-    Good.sample1(),
-    Good.sample1(),
-    Good.sample1(),
-    Good.sample1(),
-    Good.sample1()
-  ];
-
   late final PersistentTabController _controller;
 
   void _controllerListener() => setState(() {});
@@ -74,10 +66,7 @@ class _HomePageState extends State<HomePage> {
         AllGoods(),
         NewGood(),
         ExchangePage(),
-        ProfilePage(
-          goods: myGoods,
-          user: User.sample2(),
-        ),
+        ProfilePage(),
       ],
       hideNavigationBarWhenKeyboardShows: false,
       screenTransitionAnimation: const ScreenTransitionAnimation(

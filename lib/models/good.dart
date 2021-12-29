@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bavito/models/user.dart';
 
 class Good {
@@ -69,4 +71,34 @@ class Good {
 
     return good;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'owner': owner.toMap(),
+      'title': title,
+      'description': description,
+      'imgSrc': imgSrc,
+      'isMy': isMy,
+      'pricePoints': pricePoints,
+    };
+  }
+
+  factory Good.fromMap(Map<String, dynamic> map, User owner) {
+    return Good(
+      id: map['id']?.toInt() ?? 0,
+      owner: owner,
+      title: map['title'] ?? '',
+      description: map['description'] ?? '',
+      imgSrc: map['image_url'] ?? '',
+      pricePoints: map['points']?.toInt() ?? 0,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Good.fromJson(String source, User owner) => Good.fromMap(
+        json.decode(source),
+        owner,
+      );
 }

@@ -1,5 +1,5 @@
 import 'package:bavito/main.dart';
-import 'package:bavito/network/dio_auth_service.dart';
+import 'package:bavito/network/auth_network.dart';
 import 'package:bavito/network/exceptions/api_request_exception.dart';
 import 'package:bavito/services/dio_service.dart';
 import 'package:bavito/services/user_service.dart';
@@ -13,12 +13,12 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserService _userService;
 
-  late final DioAuthService _dioAuthService;
+  late final AuthNetwork _dioAuthService;
 
   LoginBloc(
     this._userService,
   ) : super(LoginInitial()) {
-    _dioAuthService = DioAuthService(getIt<DioService>());
+    _dioAuthService = AuthNetwork(getIt<DioService>());
 
     on<LoginAttempted>(
       (event, emit) async {
